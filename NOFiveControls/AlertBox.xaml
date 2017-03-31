@@ -1,0 +1,275 @@
+﻿<Window x:Class="NOFiveControls.AlertBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOFiveControls"
+        mc:Ignorable="d"
+        SizeToContent="WidthAndHeight" WindowStyle="None" MinHeight="250" AllowsTransparency="True"
+        ShowInTaskbar="False" ResizeMode="NoResize" BorderThickness="0" Background="{x:Null}">
+    <Window.Resources>
+        <!--<LinearGradientBrush x:Key="ShadowLGB" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#adadad"  Offset="0" />
+            <GradientStop Color="#e2e2e2" Offset="0.05" />
+            <GradientStop Color="#e2e2e2" Offset="0.95" />
+            <GradientStop Color="#bababa" Offset="1" />
+        </LinearGradientBrush>-->
+        <GradientStopCollection x:Key="ShadowGSC">
+            <GradientStop Color="#e2e2e2" Offset="0" />
+            <GradientStop Color="#dfdfdf" Offset="0.3" />
+            <GradientStop Color="#bfbfbf" Offset="1" />
+        </GradientStopCollection>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Item.MouseOver.Background" Color="#F3BE3F"/>
+        <SolidColorBrush x:Key="Item.Selected.Background" Color="#F3D13F"/>
+        <Style x:Key="ListBoxItemStyle1" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="MinHeight" Value="30" />
+            <Setter Property="BorderThickness" Value="1,1,1,0"/>
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Item.Selected.Background}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background"  Value="{StaticResource Item.MouseOver.Background}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region Color resources for ok/cancel button-->
+
+        <!--357fd9-->
+        <Color x:Key="Blue.Fill" A="255" R="53" G="127" B="217" />
+        <!--4d8edd-->
+        <Color x:Key="LowBlue.Fill" A="255" R="77" G="142" B="221" />
+        <!--cd3f50-->
+        <Color x:Key="Red.Fill" A="255" R="205" G="63" B="80" />
+        <!--d35665-->
+        <Color x:Key="LowRed.Fill" A="255" R="211" G="86" B="101" />
+        <SolidColorBrush x:Key="Blue.Brush" Color="{StaticResource Blue.Fill}" />
+        <SolidColorBrush x:Key="Red.Brush" Color="{StaticResource Red.Fill}" />
+
+        <!--#endregion-->
+
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+        </Style>
+        <Style x:Key="TitleStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextTrimming" Value="CharacterEllipsis"></Setter>
+        </Style>
+        <Style x:Key="CircleButtonStyle01" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="20" Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleY">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1.2" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleY">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1.2" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed" />
+                                    <VisualState x:Name="Disabled" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter RenderTransformOrigin=".5,.5">
+                                <ContentPresenter.RenderTransform>
+                                    <ScaleTransform x:Name="ScaleTransform" />
+                                </ContentPresenter.RenderTransform>
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <Window.Template>
+        <ControlTemplate TargetType="{x:Type local:AlertBox}">
+            <Grid x:Name="PART_ROOT" MinWidth="356" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <ScaleTransform />
+                </Grid.RenderTransform>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup>
+                        <VisualState x:Name="Loading">
+                            <Storyboard Timeline.DesiredFrameRate="60">
+                                <DoubleAnimation Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Opacity" To="0" Duration="0"/>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_ROOT" Storyboard.TargetProperty="Height">
+                                    <DiscreteDoubleKeyFrame KeyTime="0" Value="160" />
+                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_ROOT" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
+                                    <DiscreteDoubleKeyFrame KeyTime="0" Value="0.4" />
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1" />
+                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimationUsingKeyFrames BeginTime="0:0:0.25" Storyboard.TargetName="PART_ROOT" Storyboard.TargetProperty="Height">
+                                    <LinearDoubleKeyFrame KeyTime="0:0:0.2" Value="250" />
+                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimation BeginTime="0:0:0.45" Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="UnLoading">
+                            <Storyboard>
+                                <!--
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="layerCanvas" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0" />
+                                </DoubleAnimationUsingKeyFrames>
+                                -->
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_ROOT" Storyboard.TargetProperty="Height">
+                                    <LinearDoubleKeyFrame KeyTime="0:0:0.2" Value="160" />
+                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimationUsingKeyFrames x:Name="UnLoadingStoryboard" BeginTime="0:0:0" Storyboard.TargetName="PART_ROOT" Storyboard.TargetProperty="Opacity">
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Rectangle Margin="3" Fill="#e2e2e2">
+                    <Rectangle.Effect>
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="6" RenderingBias="Performance" Direction="270" Opacity="0.55" Color="LightGray"/>
+                    </Rectangle.Effect>
+                </Rectangle>
+                <Grid Margin="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="68"/>
+                        <RowDefinition />
+                        <RowDefinition MinHeight="68" Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="PART_TitleArea" Background="White" Height="68">
+                        <TextBlock x:Name="PART_Title" FontSize="20" Foreground="DimGray" FontWeight="DemiBold"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TitleStyle}"
+                                   Text="{TemplateBinding AlertTitle}" />
+                        <Line StrokeThickness="8" X1="0" X2="356" Y1="1" Y2="1"  VerticalAlignment="Bottom">
+                            <Line.Stroke>
+                                <LinearGradientBrush StartPoint="0,1" EndPoint="0,0" GradientStops="{StaticResource ShadowGSC}" />
+                            </Line.Stroke>
+                        </Line>
+                    </Grid>
+                    <ScrollViewer x:Name="PART_ContentLayer" Width="356" Grid.Row="1" Height="98"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  VirtualizingPanel.IsVirtualizing="True">
+                        <ContentControl x:Name="PART_Content" FontSize="16" Foreground="DimGray" FontWeight="DemiBold"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding AlertContent}"/>
+                    </ScrollViewer>
+                    <Canvas x:Name="PART_BottomCanvas" Background="White" Width="356" Height="78" Grid.Row="2">
+                        <Canvas.CacheMode>
+                            <BitmapCache EnableClearType="True" RenderAtScale="1.0" />
+                        </Canvas.CacheMode>
+                        <Popup x:Name="PART_OKMenuPopup" StaysOpen="False" AllowsTransparency="True" PlacementTarget="{Binding ElementName=PART_OKBtn}" Placement="Top" HorizontalOffset="-40" PopupAnimation="Fade">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition Height="15"/>
+                                </Grid.RowDefinitions>
+                                <Polygon Points="115,0 115,1 70,1 60,15 50,1 5,1 5,0" Grid.Row="1" Fill="#eaeaea">
+                                    <Polygon.Effect>
+                                        <DropShadowEffect ShadowDepth="0" BlurRadius="6" Opacity="0.75" Color="#FFbfbfbf"/>
+                                    </Polygon.Effect>
+                                </Polygon>
+                                <ListBox x:Name="PART_OkMenusLayer" BorderThickness="0,0,0,0" Width="120" Background="{x:Null}"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                         ItemsSource="{TemplateBinding OKMenus}"
+                                         VerticalAlignment="Bottom" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" FontSize="14" FontWeight="SemiBold" Foreground="DimGray" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Grid>
+                        </Popup>
+                        <Button x:Name="PART_OKBtn" Height="40" Width="40" Canvas.Left="70" Canvas.Bottom="15"
+                                Visibility="{TemplateBinding OkCancelButtonVisibility}" Style="{StaticResource CircleButtonStyle01}">
+                            <Path Fill="{StaticResource Blue.Brush}" Height="40" Width="40">
+                                <Path.Data>
+                                    <GeometryGroup>
+                                        <EllipseGeometry Center="20,20" RadiusX="19" RadiusY="19"/>
+                                        <EllipseGeometry Center="20,20" RadiusX="18" RadiusY="18"/>
+                                        <EllipseGeometry Center="20,20" RadiusX="16" RadiusY="16"/>
+                                        <EllipseGeometry Center="20,20" RadiusX="10" RadiusY="10"/>
+                                        <EllipseGeometry Center="20,20" RadiusX="7" RadiusY="7"/>
+                                    </GeometryGroup>
+                                </Path.Data>
+                            </Path>
+                        </Button>
+                        <Button x:Name="PART_CancelBtn" Height="40" Width="40" Canvas.Right="70" Canvas.Bottom="15"
+                                Visibility="{TemplateBinding OkCancelButtonVisibility}" Style="{StaticResource CircleButtonStyle01}">
+                            <Path Fill="{StaticResource Red.Brush}" Height="40" Width="40">
+                                <Path.Data>
+                                    <GeometryGroup>
+                                        <EllipseGeometry Center="20,20" RadiusX="19" RadiusY="19"/>
+                                        <EllipseGeometry Center="20,20" RadiusX="18" RadiusY="18"/>
+                                        <EllipseGeometry Center="20,20" RadiusX="16" RadiusY="16"/>
+                                        <PathGeometry>
+                                            <PathFigureCollection>
+                                                <PathFigure>
+                                                    <PolyLineSegment Points="12,15 15,12 20,17 25,12 28,15 23,20 28,25 25,28 20,23 15,28 12,25 17,20 12,15"/>
+                                                </PathFigure>
+                                            </PathFigureCollection>
+                                        </PathGeometry>
+                                    </GeometryGroup>
+                                </Path.Data>
+                            </Path>
+                        </Button>
+                        <Line StrokeThickness="8" X1="0" X2="356" Y1="1" Y2="1" VerticalAlignment="Bottom" >
+                            <Line.Stroke>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" GradientStops="{StaticResource ShadowGSC}" />
+                            </Line.Stroke>
+                        </Line>
+                    </Canvas>
+                </Grid>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="OkCancelButtonVisibility" Value="Collapsed">
+                    <Setter Property="Height" TargetName="PART_BottomCanvas" Value="68" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Template>
+</Window>

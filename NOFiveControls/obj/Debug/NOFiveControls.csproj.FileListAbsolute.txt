@@ -1,0 +1,42 @@
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.csprojResolveAssemblyReference.cache
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\obj\Debug\AlertBox.g.cs
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls_MarkupCompile.cache
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls_MarkupCompile.lref
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\bin\Debug\NOFiveControls.dll
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\bin\Debug\NOFiveControls.pdb
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\obj\Debug\AlertBox.baml
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\obj\Debug\Themes\Generic.baml
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.g.resources
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.Properties.Resources.resources
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.csproj.GenerateResource.Cache
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.dll
+C:\Users\xiaox\documents\visual studio 2017\Projects\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.pdb
+C:\mnt\develop\Epxoxy\NOFiveControls\bin\Debug\NOFiveControls.dll
+C:\mnt\develop\Epxoxy\NOFiveControls\bin\Debug\NOFiveControls.pdb
+C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.csprojResolveAssemblyReference.cache
+C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\AlertBox.g.cs
+C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls_MarkupCompile.cache
+C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls_MarkupCompile.lref
+C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\AlertBox.baml
+C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\Themes\Generic.baml
+C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.g.resources
+C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.Properties.Resources.resources
+C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.csproj.GenerateResource.Cache
+C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.dll
+C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.pdb
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\bin\Debug\NOFiveControls.dll
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\bin\Debug\NOFiveControls.pdb
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.csprojResolveAssemblyReference.cache
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\AlertBox.g.cs
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls_MarkupCompile.cache
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls_MarkupCompile.lref
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\AlertBox.baml
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\Themes\Generic.baml
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.g.resources
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.Properties.Resources.resources
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.csproj.GenerateResource.Cache
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.dll
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.pdb

@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6C91FA67-0416-4E6E-A639-F3BD0806A175}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>Epxoxy</RootNamespace>
+    <AssemblyName>Epxoxy</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="presentationframework.aero2" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\Dialog\ColorPickerContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dialog\ColorPickerDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dialog\MessageDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ButtonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\CheckBoxStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ComboBoxStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\DataGridStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\DateControlStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ExpanderStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\HeaderControlStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ListViewStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\MaterialLiteStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ProgressBarStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ScrollViewerStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\SliderStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\PlaceHolderStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TabControlStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ToolTipStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TransitioningContentControlStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\WindowsTenStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Animations\ColorLightnessAnimation.cs" />
+    <Compile Include="Behaviors\DatePickerExtension.cs" />
+    <Compile Include="Behaviors\FrameExtension.cs" />
+    <Compile Include="Behaviors\ItemsSourceBehavior.cs" />
+    <Compile Include="Behaviors\NumberOnlyBehavior.cs" />
+    <Compile Include="Behaviors\ReloadBehavior.cs" />
+    <Compile Include="Behaviors\TypeNavigateBehavior.cs" />
+    <Compile Include="Behaviors\WindowClosedBehavior.cs" />
+    <Compile Include="Behaviors\WindowDraggableBehavior.cs" />
+    <Compile Include="Behaviors\WindowMaximizedBehavior.cs" />
+    <Compile Include="Behaviors\WindowMinimizedBehavior.cs" />
+    <Compile Include="Controls\Adorner\OverlayAdorner.cs" />
+    <Compile Include="Controls\Adorner\CustomAdorner.cs" />
+    <Compile Include="Controls\BindingProxy.cs" />
+    <Compile Include="Controls\ControlAttach\TabControlHelper.cs" />
+    <Compile Include="Controls\DelayFitSizeWrapper.cs" />
+    <Compile Include="Controls\Dialog\ColorPickerContentDialog.xaml.cs">
+      <DependentUpon>ColorPickerContentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dialog\ColorPickerDialog.xaml.cs">
+      <DependentUpon>ColorPickerDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ColorPicker\ColorPickerPane.cs" />
+    <Compile Include="Controls\ColorPicker\ColorSlider.cs" />
+    <Compile Include="Controls\ColorPicker\HsvControl.cs" />
+    <Compile Include="Controls\ColorPicker\SpectrumSlider.cs" />
+    <Compile Include="Controls\DependencyObject\PasswordMonitor.cs" />
+    <Compile Include="Controls\DependencyObject\PlaceHolder.cs" />
+    <Compile Include="Controls\Dialog\ContentDialog.cs" />
+    <Compile Include="Controls\Dialog\DialogResult.cs" />
+    <Compile Include="Controls\Flyout.cs" />
+    <Compile Include="Controls\IconItem.cs" />
+    <Compile Include="Controls\MetroContentControl.cs" />
+    <Compile Include="Controls\Numeric\NumericTextBox.cs" />
+    <Compile Include="Controls\Numeric\NumericUpDown.cs" />
+    <Compile Include="Controls\OutlinedTextBlock.cs" />
+    <Compile Include="Controls\PolygonProgress.cs" />
+    <Compile Include="Controls\PopupBox.cs" />
+    <Compile Include="Controls\SplitView\DisplayMode.cs" />
+    <Compile Include="Controls\SplitView\SimpleSplitView.cs" />
+    <Compile Include="Controls\SprocketControl.cs" />
+    <Compile Include="Controls\ToastLite\INotified.cs" />
+    <Compile Include="Controls\MaskControl.cs" />
+    <Compile Include="Controls\Dialog\MessageDialog.xaml.cs">
+      <DependentUpon>MessageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Panel\FillPanel.cs" />
+    <Compile Include="Controls\Previous\SplitView\SplitView.cs" />
+    <Compile Include="Controls\Previous\SplitView\SplitViewTemplateSettings.cs" />
+    <Compile Include="Controls\Panel\AdaptHeightPanel.cs" />
+    <Compile Include="Controls\SplitView\SplitView02.cs" />
+    <Compile Include="Controls\SplitView\SplitViewTemplateSettings.cs" />
+    <Compile Include="Controls\Testing\AdaptCanvas.cs" />
+    <Compile Include="Controls\ToastLite\Toast.cs" />
+    <Compile Include="Controls\ToastLite\ToastItem.cs" />
+    <Compile Include="Controls\Toggle\ToggleButtonEx.cs" />
+    <Compile Include="Controls\Toggle\ToggleSwitch.cs" />
+    <Compile Include="Controls\TransitioningContentControl.cs" />
+    <Compile Include="Controls\Underline.cs" />
+    <Compile Include="Controls\Panel\WrapBreakPanel.cs" />
+    <Compile Include="Controls\VisualStates.cs" />
+    <Compile Include="Converters\BackgroundToForegroundConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibility.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\BrushRoundConverter.cs" />
+    <Compile Include="Converters\CalendarDateCoalesceConverter.cs" />
+    <Compile Include="Converters\ColorToBrushConverter.cs" />
+    <Compile Include="Converters\ColorToComponentConverter.cs" />
+    <Compile Include="Converters\ColorToHexConverter.cs" />
+    <Compile Include="Converters\DoubleToInteger.cs" />
+    <Compile Include="Converters\HueToColorConverter.cs" />
+    <Compile Include="Converters\ImagePathConverter.cs" />
+    <Compile Include="Converters\MathConverter.cs" />
+    <Compile Include="Converters\MathMultipleConverter.cs" />
+    <Compile Include="Converters\NegateConverter.cs" />
+    <Compile Include="Converters\ParamsToArray.cs" />
+    <Compile Include="Controls\DependencyObject\ButtonBaseEx.cs" />
+    <Compile Include="Converters\ReversalConverter.cs" />
+    <Compile Include="Helpers\BehaviorHelper.cs" />
+    <Compile Include="Helpers\BitmapSourceHelper.cs" />
+    <Compile Include="Helpers\ColorEx.cs" />
+    <Compile Include="Helpers\ColorHelper.cs" />
+    <Compile Include="Controls\DependencyObject\ComboBoxHelper.cs" />
+    <Compile Include="Controls\ControlAttach\DataGridHelper.cs" />
+    <Compile Include="Helpers\DebugHelper.cs" />
+    <Compile Include="Controls\ControlAttach\ScrollViewerAttach.cs" />
+    <Compile Include="Controls\ControlAttach\ToolTipHelper.cs" />
+    <Compile Include="Controls\DependencyObject\WindowExt.cs" />
+    <Compile Include="Controls\ControlAttach\WindowHelper.cs" />
+    <Compile Include="Helpers\VisualTreeExtension.cs" />
+    <Compile Include="Native\Constants.cs" />
+    <Compile Include="Native\UnsafeNativeMethods.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
