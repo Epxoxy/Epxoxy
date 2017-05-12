@@ -79,7 +79,7 @@
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding Background}" />
                         <Ellipse x:Name="HighlightBackground"
-                                 Fill="{DynamicResource PrimaryHueDarkBrush}"
+                                 Fill="#FF2196F3"
                                  Opacity="0" />
                         <ContentPresenter x:Name="NormalText"
                                           TextElement.Foreground="{TemplateBinding Foreground}"
@@ -922,7 +922,7 @@
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" TargetName="border" Value="0.56"/>
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
+                        <!--<Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}"/>
                         </Trigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="true">
@@ -930,7 +930,7 @@
                         </Trigger>
                         <Trigger Property="Validation.HasError" Value="true">
                             <Setter Property="BorderBrush" Value="{DynamicResource ValidationErrorBrush}"/>
-                        </Trigger>
+                        </Trigger> -->
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

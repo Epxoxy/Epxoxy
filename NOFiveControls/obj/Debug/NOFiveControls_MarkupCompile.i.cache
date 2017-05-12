@@ -4,7 +4,7 @@
 library
 C#
 .cs
-C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\
+C:\Users\xiaox\Source\Repos\Epxoxy\NOFiveControls\obj\Debug\
 NOFiveControls
 none
 false
@@ -16,5 +16,5 @@ DEBUG;TRACE
 13738642453
 AlertBox.xaml;Themes\Generic.xaml;
 
-False
+True
 

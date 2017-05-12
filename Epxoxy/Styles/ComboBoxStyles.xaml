@@ -409,6 +409,69 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    <ControlTemplate x:Key="ComboBoxEditableNotShadowTemplate02" TargetType="{x:Type ComboBox}">
+        <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle x:Name="targetRect" Grid.ColumnSpan="2" Margin="0,1" />
+            <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen,  Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
+                   PlacementTarget="{Binding ElementName=targetRect}"
+                   Placement="{TemplateBinding local:ComboBoxHelper.PopupPlacement}">
+                <Border x:Name="dropDownBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding local:ComboBoxHelper.PopupThickness}" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+                             MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
+                    <!--Up, BorderBrush DynamicResource {x:Static SystemColors.WindowFrameBrushKey}-->
+                    <ScrollViewer x:Name="DropDownScrollViewer">
+                        <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
+                            <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
+                                <Rectangle x:Name="opaqueRect" Fill="{Binding Background, ElementName=dropDownBorder}" Height="{Binding ActualHeight, ElementName=dropDownBorder}" Width="{Binding ActualWidth, ElementName=dropDownBorder}"/>
+                            </Canvas>
+                            <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Grid>
+                    </ScrollViewer>
+                </Border>
+            </Popup>
+            <ToggleButton x:Name="toggleButton" Grid.ColumnSpan="2" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"
+                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}"/>
+            <Border x:Name="border" Background="{StaticResource TextBox.Static.Background}" Margin="{TemplateBinding BorderThickness}">
+                <TextBox x:Name="PART_EditableTextBox" IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}" 
+                         local:PlaceHolder.Content="{TemplateBinding local:PlaceHolder.Content}"
+                         Style="{TemplateBinding local:ComboBoxHelper.EditTextBoxStyle}"
+                         Margin="{TemplateBinding Padding}">
+                </TextBox>
+            </Border>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="BorderBrush" TargetName="toggleButton" Value="{StaticResource ComboBoxEditable.MouseOver.Border}"/>
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="true">
+                <Setter Property="BorderBrush" TargetName="toggleButton" Value="{StaticResource ComboBoxEditable.Focus.Border}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" TargetName="toggleButton" Value="0.56"/>
+            </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="true">
+                <Setter Property="Foreground" Value="Black"/>
+                <!--<Setter Property="BorderBrush" Value="{StaticResource ComboBox.Focus.BorderBrush}" />-->
+            </Trigger>
+            <Trigger Property="HasItems" Value="false">
+                <Setter Property="Height" TargetName="dropDownBorder" Value="95"/>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsGrouping" Value="true"/>
+                    <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+            </MultiTrigger>
+            <Trigger Property="ScrollViewer.CanContentScroll" SourceName="DropDownScrollViewer" Value="false">
+                <Setter Property="Canvas.Top" TargetName="opaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}"/>
+                <Setter Property="Canvas.Left" TargetName="opaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
     <Style x:Key="ComboBoxNotShadowStyle" TargetType="{x:Type ComboBox}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource ComboBox.FocusVisual}"/>
         <Setter Property="Background" Value="{StaticResource ComboBox.Static.Background}"/>
@@ -432,6 +495,35 @@
                 <Setter Property="IsTextSearchCaseSensitive" Value="True" />
                 <Setter Property="BorderBrush" Value="LightGray"/>
                 <Setter Property="Template" Value="{StaticResource ComboBoxEditableNotShadowTemplate}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="ComboBoxNotShadowStyle02" TargetType="{x:Type ComboBox}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ComboBox.FocusVisual}"/>
+        <Setter Property="Background" Value="{StaticResource ComboBox.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ComboBox.Static.Border}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="Padding" Value="3,5"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="local:ComboBoxHelper.PopupThickness" Value="1" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItemStyle}" />
+        <Setter Property="Template" Value="{StaticResource SetsComboBoxNoShadowTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEditable" Value="true">
+                <Setter Property="IsTabStop" Value="false"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="IsTextSearchEnabled" Value="True" />
+                <Setter Property="IsTextSearchCaseSensitive" Value="True" />
+                <Setter Property="BorderBrush" Value="LightGray"/>
+                <Setter Property="Template" Value="{StaticResource ComboBoxEditableNotShadowTemplate02}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Visibility" Value="Collapsed" />

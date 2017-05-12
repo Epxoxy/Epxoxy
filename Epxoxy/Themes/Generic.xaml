@@ -1218,8 +1218,8 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <ContentControl Grid.Column="0" Grid.RowSpan="2" Content="{TemplateBinding Thumb}"/>
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{TemplateBinding ToastTitle}" />
-                            <ContentControl VerticalAlignment="Top" Padding="0,0,0,4" Grid.Row="1" Grid.Column="1" Content="{TemplateBinding ToastContent}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{TemplateBinding ToastTitle}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                            <ContentControl TextElement.FontSize="12" VerticalAlignment="Top" Padding="0,0,0,4" Grid.Row="1" Grid.Column="1" Content="{TemplateBinding ToastContent}"/>
                             <Button x:Name="PART_CloseBtn" Grid.Column="2" BorderThickness="0" Padding="2" MinHeight="25" Template="{StaticResource DeleteButtonTemplateKey}"
                                     Command="{x:Static local:Toast.RemoveToastCommand}" Background="Transparent" Foreground="Transparent"/>
                         </Grid>
@@ -1583,12 +1583,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:PopupBox}">
                     <Grid Background="Transparent">
-                        <ContentControl x:Name="PART_Content" Content="{TemplateBinding Content}" SnapsToDevicePixels="True"/>
+                        <ContentControl x:Name="PART_Content" Content="{TemplateBinding PopupButton}" SnapsToDevicePixels="True"/>
                         <Popup x:Name="PART_Popup" Placement="Top" PlacementTarget="{Binding ElementName=PART_Content}"
-                               AllowsTransparency="True" PopupAnimation="Fade" VerticalOffset="2">
+                               AllowsTransparency="True" PopupAnimation="Fade">
                             <Grid Width="{Binding ActualWidth, ElementName=PART_Content}">
                                 <Rectangle Fill="White" Opacity="0.002" />
-                                <ItemsPresenter x:Name="PART_ItemsPresenter" />
+                                <ContentPresenter x:Name="PART_ContentPresenter"/>
                             </Grid>
                         </Popup>
                     </Grid>

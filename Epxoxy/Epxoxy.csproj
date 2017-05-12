@@ -8,10 +8,11 @@
     <OutputType>library</OutputType>
     <RootNamespace>Epxoxy</RootNamespace>
     <AssemblyName>Epxoxy</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -170,7 +171,7 @@
     <Compile Include="Controls\Dialog\ContentDialog.cs" />
     <Compile Include="Controls\Dialog\DialogResult.cs" />
     <Compile Include="Controls\Flyout.cs" />
-    <Compile Include="Controls\IconItem.cs" />
+    <Compile Include="Controls\DependencyObject\IconItem.cs" />
     <Compile Include="Controls\MetroContentControl.cs" />
     <Compile Include="Controls\Numeric\NumericTextBox.cs" />
     <Compile Include="Controls\Numeric\NumericUpDown.cs" />
@@ -201,6 +202,7 @@
     <Compile Include="Controls\Panel\WrapBreakPanel.cs" />
     <Compile Include="Controls\VisualStates.cs" />
     <Compile Include="Converters\BackgroundToForegroundConverter.cs" />
+    <Compile Include="Converters\BooleanSelectorConverter.cs" />
     <Compile Include="Converters\BooleanToVisibility.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BrushRoundConverter.cs" />
@@ -208,7 +210,16 @@
     <Compile Include="Converters\ColorToBrushConverter.cs" />
     <Compile Include="Converters\ColorToComponentConverter.cs" />
     <Compile Include="Converters\ColorToHexConverter.cs" />
+    <Compile Include="Converters\DataGridVisibilityConverter.cs" />
     <Compile Include="Converters\DoubleToInteger.cs" />
+    <Compile Include="Converters\ReversalBooleanConverter.cs" />
+    <Compile Include="Converters\XamlHtml\HtmlToXamlConverter.cs" />
+    <Compile Include="Converters\XamlHtml\HtmlCssParser.cs" />
+    <Compile Include="Converters\XamlHtml\HtmlFromXamlConverter.cs" />
+    <Compile Include="Converters\XamlHtml\HtmlLexicalAnalyzer.cs" />
+    <Compile Include="Converters\XamlHtml\HtmlParser.cs" />
+    <Compile Include="Converters\XamlHtml\HtmlSchema.cs" />
+    <Compile Include="Converters\XamlHtml\HtmlTokenType.cs" />
     <Compile Include="Converters\HueToColorConverter.cs" />
     <Compile Include="Converters\ImagePathConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
@@ -228,6 +239,8 @@
     <Compile Include="Controls\ControlAttach\ToolTipHelper.cs" />
     <Compile Include="Controls\DependencyObject\WindowExt.cs" />
     <Compile Include="Controls\ControlAttach\WindowHelper.cs" />
+    <Compile Include="Helpers\RichTextboxAssistant.cs" />
+    <Compile Include="Helpers\VisualExtensions.cs" />
     <Compile Include="Helpers\VisualTreeExtension.cs" />
     <Compile Include="Native\Constants.cs" />
     <Compile Include="Native\UnsafeNativeMethods.cs" />
@@ -253,6 +266,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Note.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

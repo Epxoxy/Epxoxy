@@ -131,8 +131,6 @@ namespace Epxoxy.Controls
             }
             else
             {
-                if (e.Key == Key.Decimal)
-                    System.Diagnostics.Debug.WriteLine("Decimal");
                 if ((e.Key > Key.D9 || e.Key < Key.D0)
                     && (e.Key > Key.NumPad9 || e.Key < Key.NumPad0))
                 {
@@ -154,7 +152,7 @@ namespace Epxoxy.Controls
                         case Key.RightShift: break;
                         case Key.OemMinus:
                         case Key.Subtract:
-                            if (!isShiftHolded()
+                            if (isShiftHolded()
                                 || !acceptNegative
                                 || newValueCache < 0)
                                 e.Handled = true;
@@ -181,6 +179,7 @@ namespace Epxoxy.Controls
                 }
                 else if (text.Length > 1 && text[text.Length - 1] == '.')
                 {
+                    if(text.Length == 2)
                     text = text.Remove(text.Length - 1, 1);
                 }
                 TextChange[] changes = new TextChange[e.Changes.Count];
@@ -192,7 +191,11 @@ namespace Epxoxy.Controls
                     if (!double.TryParse(text, out value))
                     {
                         System.Diagnostics.Debug.WriteLine("TryParse fail : " + text);
-                        this.Text = text.Remove(offset, changes[0].AddedLength);
+                        if (text.Length >= offset + changes[0].AddedLength)
+                        {
+                            text = text.Remove(offset, changes[0].AddedLength);
+                        }
+                        this.Text = text;
                         this.Select(offset, 0);
                     }
                     else updateNumberWithIgnoreText(value);
@@ -238,6 +241,7 @@ namespace Epxoxy.Controls
                 isInternalSync = true;
                 Value = 0;
                 Text = Text.Insert(0, "0");
+                this.Select(this.Text.Length, 0);
                 isInternalSync = false;
             }
             else return false;

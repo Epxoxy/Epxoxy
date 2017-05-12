@@ -1,0 +1,6 @@
+﻿*********************
+About the Behavior<T>
+For WPF, Behavior.Detach() may not be invoke auto.
+But it's handed in UWP
+Please search <<Behaviors SDK for UWP>>
+*********************

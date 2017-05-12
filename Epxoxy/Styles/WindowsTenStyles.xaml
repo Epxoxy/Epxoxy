@@ -131,6 +131,7 @@
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Background" Value="{StaticResource NormalButton.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
         <Setter Property="Template" Value="{StaticResource WindowsTenButtonTwoControlTemplate}" />
@@ -177,6 +178,7 @@
     <Style x:Key="WindowsTenRadioButtonLightStyle" TargetType="{x:Type RadioButton}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0,0,0,0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RadioButton}">
@@ -184,16 +186,30 @@
                             Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CheckStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="Unchecked" To="Checked">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX" Duration="0:0:0.1" To="1" />
+                                            <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.1" To="1" />
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition From="Checked" To="Unchecked">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX" Duration="0:0:0.1" To="0" />
+                                            <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.1" To="0" />
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
                                 <VisualState x:Name="Checked">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX" Duration="0:0:0.075" To="1" />
-                                        <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.075" To="1" />
+                                        <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX" Duration="0:0:0" To="1" />
+                                        <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleY" Duration="0:0:0" To="1" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Unchecked">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX" Duration="0:0:0.075" To="0" />
-                                        <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.075" To="0" />
+                                        <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX" Duration="0:0:0" To="0" />
+                                        <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleY" Duration="0:0:0" To="0" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Indeterminate">
@@ -273,12 +289,7 @@
                             </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
-                    <VisualState x:Name="Disabled">
-                        <Storyboard>
-                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="over" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
-                                                    To="{StaticResource ToggleButton.Disable.Background.Color}" />
-                        </Storyboard>
-                    </VisualState>
+                    <VisualState x:Name="Disabled" />
                 </VisualStateGroup>
                 <VisualStateGroup x:Name="CheckStates">
                     <VisualState x:Name="Checked">
@@ -298,7 +309,6 @@
                 <Grid.RenderTransform>
                     <SkewTransform  AngleX="0"/>
                 </Grid.RenderTransform>
-                <Rectangle x:Name="over" Fill="Transparent" Focusable="False"/>
                 <ContentPresenter Grid.Column="1" x:Name="contentPresenter" TextBlock.FontSize="{TemplateBinding FontSize}"
                                   Focusable="False" HorizontalAlignment="Left" RecognizesAccessKey="True"
                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="{TemplateBinding Padding}"

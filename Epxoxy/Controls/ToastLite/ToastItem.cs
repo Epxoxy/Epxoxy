@@ -3,13 +3,12 @@
 namespace Epxoxy.Controls
 {
     [Serializable]
-    public class ToastItem : INotified
+    public class ToastItem : INotifyItem
     {
         private string description;
         private object toastContent;
         private string toastTitle = "Title";
         private object thumb;
-        private DateTime notifiedTime;
 
         public string Description
         {
@@ -59,23 +58,5 @@ namespace Epxoxy.Controls
             }
         }
         public System.Windows.Input.ICommand Command { get; set; }
-
-        public DateTime NotifiedTime
-        {
-            get
-            {
-                return notifiedTime;
-            }
-
-            set
-            {
-                notifiedTime = value;
-            }
-        }
-
-        public ToastItem()
-        {
-            notifiedTime = DateTime.Now;
-        }
     }
 }

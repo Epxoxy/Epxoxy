@@ -12,27 +12,27 @@ namespace Epxoxy.Controls
     /// </summary>
     public partial class MessageDialog : Window
     {
-        public bool HideCloseButton
+        public Visibility CloseButtonVisibility
         {
-            get { return (bool)GetValue(HideCloseButtonProperty); }
-            set { SetValue(HideCloseButtonProperty, value); }
+            get { return (Visibility)GetValue(CloseButtonVisibilityProperty); }
+            set { SetValue(CloseButtonVisibilityProperty, value); }
         }
-
-        public static readonly DependencyProperty HideCloseButtonProperty =
-            DependencyProperty.Register("HideCloseButton", typeof(bool), typeof(MessageDialog), new PropertyMetadata(true, OnHideCloseButtonChanged));
-
-        private static void OnHideCloseButtonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static readonly DependencyProperty CloseButtonVisibilityProperty =
+            DependencyProperty.Register("CloseButtonVisibility", typeof(Visibility), typeof(MessageDialog), new PropertyMetadata(Visibility.Collapsed));
+        
+        public double StrokeThickness
         {
-            var dialog = d as MessageDialog;
-            if (dialog != null) dialog.UpdateCloseButtonVisibility();
+            get { return (double)GetValue(StrokeThicknessProperty); }
+            set { SetValue(StrokeThicknessProperty, value); }
         }
-
+        public static readonly DependencyProperty StrokeThicknessProperty =
+            DependencyProperty.Register("StrokeThickness", typeof(double), typeof(MessageDialog), new PropertyMetadata(0d));
+        
         public string TypeTitle
         {
             get { return (string)GetValue(TypeTitleProperty); }
             set { SetValue(TypeTitleProperty, value); }
         }
-
         public static readonly DependencyProperty TypeTitleProperty =
             DependencyProperty.Register("TypeTitle", typeof(string), typeof(MessageDialog), new PropertyMetadata("Message"));
 
@@ -41,7 +41,6 @@ namespace Epxoxy.Controls
             get { return (string)GetValue(PrimaryButtonTextProperty); }
             set { SetValue(PrimaryButtonTextProperty, value); }
         }
-
         public static readonly DependencyProperty PrimaryButtonTextProperty =
             DependencyProperty.Register("PrimaryButtonText", typeof(string), typeof(MessageDialog), new PropertyMetadata("OK"));
 
@@ -50,7 +49,6 @@ namespace Epxoxy.Controls
             get { return (string)GetValue(SecondaryButtonTextProperty); }
             set { SetValue(SecondaryButtonTextProperty, value); }
         }
-
         public static readonly DependencyProperty SecondaryButtonTextProperty =
             DependencyProperty.Register("SecondaryButtonText", typeof(string), typeof(MessageDialog), new PropertyMetadata("Cancel"));
 
@@ -59,16 +57,14 @@ namespace Epxoxy.Controls
             get { return (DialogResult)GetValue(DialogResultProperty); }
             set { SetValue(DialogResultProperty, value); }
         }
-
         public static readonly DependencyProperty DialogResultProperty =
-            DependencyProperty.Register("DialogResult", typeof(DialogResult), typeof(MessageDialog), new PropertyMetadata(default(DialogResult)));
+            DependencyProperty.Register("DialogResult", typeof(DialogResult), typeof(MessageDialog), new PropertyMetadata(DialogResult.Dismiss));
 
         public DialogResult ResultOnPressEnter
         {
             get { return (DialogResult)GetValue(ResultOnPressEnterProperty); }
             set { SetValue(ResultOnPressEnterProperty, value); }
         }
-
         public static readonly DependencyProperty ResultOnPressEnterProperty =
             DependencyProperty.Register("ResultOnPressEnter", typeof(DialogResult), typeof(MessageDialog), new PropertyMetadata(DialogResult.Primary));
 
@@ -76,8 +72,8 @@ namespace Epxoxy.Controls
         private Button closeButton;
         private Button primaryButton;
         private Button secondaryButton;
-        private Border border;
-        private ContentPresenter content;
+        private FrameworkElement templateRoot;
+        private System.Windows.Shapes.Rectangle border;
 
         public MessageDialog(Window win)
         {
@@ -96,12 +92,17 @@ namespace Epxoxy.Controls
         protected override void OnContentChanged(object oldContent, object newContent)
         {
             base.OnContentChanged(oldContent, newContent);
-            if (border != null)
+            this.AdjustSize();
+        }
+
+        private void AdjustSize()
+        {
+            if (templateRoot != null)
             {
-                border.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-                Size desiredSize = border.DesiredSize;
-                this.Height = desiredSize.Height >= this.MaxHeight ? MaxHeight : desiredSize.Height;
-                this.Width = desiredSize.Width >= this.MaxWidth ? MaxHeight : desiredSize.Width;
+                templateRoot.Measure(new Size(this.MaxWidth, this.MaxHeight));
+                Size desiredSize = templateRoot.DesiredSize;
+                this.Width = desiredSize.Width;
+                this.Height = desiredSize.Height;
                 AdjustWindowLocation();
             }
         }
@@ -116,7 +117,6 @@ namespace Epxoxy.Controls
                     WindowStartupLocation = WindowStartupLocation.Manual;
                 this.Top = (this.Owner.ActualHeight - this.ActualHeight) / 2 + this.Owner.Top;
                 this.Left = (this.Owner.ActualWidth - this.ActualWidth) / 2 + this.Owner.Left;
-                System.Diagnostics.Debug.WriteLine(this.Top + ", " + this.Left);
             }
         }
         
@@ -130,34 +130,34 @@ namespace Epxoxy.Controls
             this.closeButton = GetTemplateChild("PART_CloseButton") as Button;
             this.primaryButton = GetTemplateChild("PART_PrimaryButton") as Button;
             this.secondaryButton = GetTemplateChild("PART_SecondaryButton") as Button;
-            this.border = GetTemplateChild("PART_Border") as Border;
-            this.content = GetTemplateChild("PART_Content") as ContentPresenter;
-            if (border != null)
-            {
-                border.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-                Size desiredSize = border.DesiredSize;
-                this.Height = desiredSize.Height >= this.MaxHeight ? MaxHeight : desiredSize.Height;
-                this.Width = desiredSize.Width >= this.MaxWidth ? MaxHeight : desiredSize.Width;
-                AdjustWindowLocation();
-            }
+            this.templateRoot = GetTemplateChild("PART_TemplateRoot") as FrameworkElement;
+            this.border = GetTemplateChild("PART_Border") as System.Windows.Shapes.Rectangle;
+
+            this.AdjustSize();
             //subscribe handlers
             this.SubscribeHandler();
-            //Update visibility
-            UpdateCloseButtonVisibility();
         }
 
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        //Why need this? If show string with new line("\n")
+        //Use ContentPresenter will case "AdjustSize" method
+        //can't get a right size for adapt window
+        //But when we add textblock by ourselves
+        //Problem solved.
+        public DialogResult ShowDialog(string title, string message)
         {
-            this.Activated -= OnDialogActivated;
-            this.Deactivated -= OnDialogDeactivated;
-            this.UnsubscribeHandlers();
-            Keyboard.ClearFocus();
-            base.OnClosing(e);
+            this.Title = title;
+            this.Content = new TextBlock()
+            {
+                Text = message,
+                TextWrapping = TextWrapping.WrapWithOverflow
+            };
+            this.ShowDialog();
+            return DialogResult;
         }
 
         private void SubscribeHandler()
         {
-            if (title != null) title.MouseDown += OnTitleAreaDrag;
+            if (border != null) border.MouseDown += OnTitleAreaDrag;
             if (closeButton != null) closeButton.Click += OnCloseBtnClick;
             if (primaryButton != null) primaryButton.Click += OnPrimaryButtonClick;
             if (secondaryButton != null) secondaryButton.Click += OnSecondaryButtonClick;
@@ -165,26 +165,23 @@ namespace Epxoxy.Controls
 
         private void UnsubscribeHandlers()
         {
-            if (title != null) title.MouseDown -= OnTitleAreaDrag;
+            if (border != null) border.MouseDown -= OnTitleAreaDrag;
             if (closeButton != null) closeButton.Click -= OnCloseBtnClick;
             if (primaryButton != null) primaryButton.Click -= OnPrimaryButtonClick;
             if (secondaryButton != null) secondaryButton.Click -= OnSecondaryButtonClick;
-        }
-
-        private void UpdateCloseButtonVisibility()
-        {
-            if (this.closeButton != null)
-            {
-                this.closeButton.Visibility = HideCloseButton ? Visibility.Collapsed : Visibility.Visible;
-            }
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             this.Loaded -= OnLoaded;
             Keyboard.Focus(this);
-            this.Activated += OnDialogActivated;
-            this.Deactivated += OnDialogDeactivated;
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            this.UnsubscribeHandlers();
+            Keyboard.ClearFocus();
+            base.OnClosing(e);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -210,25 +207,29 @@ namespace Epxoxy.Controls
                         closeButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, closeButton));
                     else OnCloseBtnClick(this, new RoutedEventArgs());
                 }
+                e.Handled = true;
             }
             else if (e.Key == Key.Escape || e.Key == Key.Back)
             {
                 if (closeButton != null)
                     closeButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, closeButton));
                 else OnCloseBtnClick(this, new RoutedEventArgs());
+                e.Handled = true;
             }
         }
 
-        private void OnDialogActivated(object sender, EventArgs e)
+        protected override void OnActivated(EventArgs e)
         {
+            base.OnActivated(e);
             if (title != null) title.Foreground = Brushes.Black;
-            //this.BorderBrush.Opacity = 1;
+            if (border != null) border.Stroke = SystemParameters.WindowGlassBrush;
         }
 
-        private void OnDialogDeactivated(object sender, EventArgs e)
+        protected override void OnDeactivated(EventArgs e)
         {
+            base.OnDeactivated(e);
             if (title != null) title.Foreground = Brushes.LightGray;
-            //this.BorderBrush.Opacity = 0;
+            if (border != null) border.Stroke = Brushes.LightGray;
         }
 
         private void OnTitleAreaDrag(object sender, MouseButtonEventArgs e)

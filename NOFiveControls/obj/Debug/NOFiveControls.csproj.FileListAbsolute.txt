@@ -28,7 +28,6 @@ C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.dll
 C:\mnt\develop\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.pdb
 C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\bin\Debug\NOFiveControls.dll
 C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\bin\Debug\NOFiveControls.pdb
-C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.csprojResolveAssemblyReference.cache
 C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\AlertBox.g.cs
 C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls_MarkupCompile.cache
@@ -40,3 +39,4 @@ C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.Properties.
 C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.csproj.GenerateResource.Cache
 C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.dll
 C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.pdb
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Debug\NOFiveControls.csprojResolveAssemblyReference.cache

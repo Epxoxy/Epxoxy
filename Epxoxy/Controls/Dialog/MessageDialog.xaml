@@ -27,7 +27,11 @@
     </Window.Resources>
     <Window.Template>
         <ControlTemplate TargetType="{x:Type local:MessageDialog}">
-            <Border x:Name="PART_Border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+            <Grid x:Name="PART_TemplateRoot">
+                <Rectangle x:Name="PART_Border" Fill="{TemplateBinding Background}" 
+                           Stroke="{x:Static SystemParameters.WindowGlassBrush}" 
+                           StrokeThickness="{TemplateBinding StrokeThickness}"
+                           SnapsToDevicePixels="True" />
                 <Grid Margin="7,0,7,7">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
@@ -39,25 +43,36 @@
                             <ColumnDefinition />
                             <ColumnDefinition Width="20"/>
                         </Grid.ColumnDefinitions>
-                        <Label x:Name="PART_Title" Content="{TemplateBinding TypeTitle}"/>
+                        <Label x:Name="PART_Title" Content="{TemplateBinding TypeTitle}" IsHitTestVisible="False"/>
                         <Button x:Name="PART_CloseButton" Grid.Column="1" BorderThickness="0" Background="Transparent"
                                 HorizontalAlignment="Center" VerticalAlignment="Center"
-                                Template="{StaticResource DeleteButtonTemplateKey}"/>
+                                Template="{StaticResource DeleteButtonTemplateKey}" Visibility="{TemplateBinding CloseButtonVisibility}"/>
                     </Grid>
                     <Grid Grid.Row="1" Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBlock FontSize="20" Text="{TemplateBinding Title}"/>
-                        <ContentPresenter x:Name="PART_Content" Grid.Row="1" TextElement.FontSize="16" Margin="0,10"/>
+                        <TextBlock FontSize="20" Text="{TemplateBinding Title}" IsHitTestVisible="False"/>
+                        <ContentPresenter x:Name="PART_Content" Grid.Row="1" TextElement.FontSize="16" Margin="0,10">
+                            <ContentPresenter.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
                     </Grid>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
                         <Button x:Name="PART_PrimaryButton" Content="{TemplateBinding PrimaryButtonText}" Width="90" Margin="12,0" Style="{StaticResource WinTenBtnStyle}"/>
                         <Button x:Name="PART_SecondaryButton" Content="{TemplateBinding SecondaryButtonText}" Width="90" Style="{StaticResource WinTenBtnStyle}"/>
                     </StackPanel>
                 </Grid>
-            </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="CloseButtonVisibility" Value="Visible">
+                    <Setter Property="Grid.ColumnSpan" TargetName="PART_Title" Value="2" />
+                </Trigger>
+            </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Template>
 </Window>

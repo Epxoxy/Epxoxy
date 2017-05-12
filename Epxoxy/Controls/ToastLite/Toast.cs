@@ -8,7 +8,7 @@ using System.Windows.Shapes;
 
 namespace Epxoxy.Controls
 {
-    public class Toast : Control, INotified
+    public class Toast : Control, ICommandSource
     {
         static Toast()
         {
@@ -39,19 +39,20 @@ namespace Epxoxy.Controls
             if (toast != null)
             {
                 var obj = e.Parameter;
-                INotified iNotified;
-                if (obj is string) iNotified = new ToastItem()
+                INotifyItem notifyItem;
+                if (obj is string) notifyItem = new ToastItem()
                 {
                     ToastContent = obj,
                     Thumb = new Rectangle()
                     {
                         Height = 30,
                         Width = 30,
+                        Margin = new Thickness(7,0,7,0),
                         Fill = Brushes.SkyBlue
                     }
                 };
-                else iNotified = (e.Parameter as INotified);
-                toast.AddNotifiedItem(iNotified);
+                else notifyItem = (e.Parameter as INotifyItem);
+                toast.NewerNotifyItem = notifyItem;
             }
         }
 
@@ -75,40 +76,35 @@ namespace Epxoxy.Controls
             get { return (bool)GetValue(IsPressedProperty); }
             private set { SetValue(IsPressedProperty, value); }
         }
-
-        public INotified NotifiedItem
-        {
-            get { return (INotified)GetValue(NotifiedItemProperty); }
-            set { SetValue(NotifiedItemProperty, value); }
-        }
+        
         public object ToastContent
         {
             get { return (object)GetValue(ToastContentProperty); }
-            set { SetValue(ToastContentProperty, value); }
+            private set { SetValue(ToastContentProperty, value); }
         }
         public string ToastTitle
         {
             get { return (string)GetValue(ToastTitleProperty); }
-            set { SetValue(ToastTitleProperty, value); }
+            private set { SetValue(ToastTitleProperty, value); }
         }
         public string Description
         {
             get { return (string)GetValue(DescriptionProperty); }
-            set { SetValue(DescriptionProperty, value); }
+            private set { SetValue(DescriptionProperty, value); }
         }
         public object Thumb
         {
             get { return (object)GetValue(ThumbProperty); }
-            set { SetValue(ThumbProperty, value); }
+            private set { SetValue(ThumbProperty, value); }
         }
-        public DateTime NotifiedTime
+        public DateTime NotifyTime
         {
-            get { return (DateTime)GetValue(NotifiedTimeProperty); }
-            set { SetValue(NotifiedTimeProperty, value); }
+            get { return (DateTime)GetValue(NotifyTimeProperty); }
+            private set { SetValue(NotifyTimeProperty, value); }
         }
-        public BindingList<INotified> DismissList
+        public BindingList<INotifyItem> DismissList
         {
-            get { return (BindingList<INotified>)GetValue(DismissListProperty); }
+            get { return (BindingList<INotifyItem>)GetValue(DismissListProperty); }
             private set { SetValue(DismissListProperty, value); }
         }
         public TimeSpan DismissTime
@@ -120,6 +116,11 @@ namespace Epxoxy.Controls
         {
             get { return (int)GetValue(MaxDismissSizeProperty); }
             set { SetValue(MaxDismissSizeProperty, value); }
+        }
+        public INotifyItem NewerNotifyItem
+        {
+            get { return (INotifyItem)GetValue(NewerNotifyItemProperty); }
+            set { SetValue(NewerNotifyItemProperty, value); }
         }
         
         public static readonly DependencyProperty CommandProperty =
@@ -138,17 +139,17 @@ namespace Epxoxy.Controls
             DependencyProperty.Register("Description", typeof(string), typeof(Toast), new PropertyMetadata(string.Empty));
         public static readonly DependencyProperty ThumbProperty =
             DependencyProperty.Register("Thumb", typeof(object), typeof(Toast), new PropertyMetadata(null));
-        public static readonly DependencyProperty NotifiedTimeProperty =
-            DependencyProperty.Register("NotifiedTime", typeof(DateTime), typeof(Toast), new PropertyMetadata(null));
-        public static readonly DependencyProperty NotifiedItemProperty =
-            DependencyProperty.Register("NotifiedItem", typeof(INotified), typeof(Toast), new PropertyMetadata(null, OnNotifiedContentChanged));
+        public static readonly DependencyProperty NotifyTimeProperty =
+            DependencyProperty.Register("NotifyTime", typeof(DateTime), typeof(Toast), new PropertyMetadata(null));
         public static readonly DependencyProperty DismissTimeProperty =
             DependencyProperty.Register("DismissTime", typeof(TimeSpan), typeof(Toast), new PropertyMetadata(TimeSpan.FromSeconds(5d)));
         public static readonly DependencyProperty DismissListProperty =
-            DependencyProperty.Register("DismissList", typeof(BindingList<INotified>), typeof(Toast), new PropertyMetadata(new BindingList<INotified>()));
+            DependencyProperty.Register("DismissList", typeof(BindingList<INotifyItem>), typeof(Toast), new PropertyMetadata(new BindingList<INotifyItem>()));
         public static readonly DependencyProperty MaxDismissSizeProperty =
             DependencyProperty.Register("MaxDismissSize", typeof(int), typeof(Toast), new PropertyMetadata(10, OnMaxDismissSizeChanged));
-
+        public static readonly DependencyProperty NewerNotifyItemProperty =
+            DependencyProperty.Register("NewerNotifyItem", typeof(INotifyItem), typeof(Toast), new PropertyMetadata(null, OnNewerNotifyItemChanged));
+        
         private static void OnMaxDismissSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var toast = d as Toast;
@@ -163,12 +164,26 @@ namespace Epxoxy.Controls
             }
         }
 
-        private static void OnNotifiedContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnNewerNotifyItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var toast = d as Toast;
-            if (toast != null) toast.AddNotifiedItem(e.NewValue as INotified);
+            if (toast != null) toast.AddNotifyItem(e.NewValue as INotifyItem);
         }
 
+        public void ToastMessage(string title, string message)
+        {
+            var toastitem = new ToastItem()
+            {
+                ToastTitle = title,
+                ToastContent = new TextBlock()
+                {
+                    Text = message,
+                    TextWrapping = TextWrapping.Wrap
+                },
+            };
+            this.NewerNotifyItem = toastitem;
+        }
+        
         #region Timer
 
         private void EnsureTimer()
@@ -212,7 +227,7 @@ namespace Epxoxy.Controls
 
         #region Update Toast
 
-        private void AddNotifiedItem(INotified newItem)
+        private void AddNotifyItem(INotifyItem newItem)
         {
             if (newItem == null) return;
             waitingList.Add(newItem);
@@ -244,10 +259,10 @@ namespace Epxoxy.Controls
                     waitingList.Remove(NotifingItem);
 
                 ToastContent = NotifingItem.ToastContent;
-                ToastTitle = NotifingItem.ToastTitle + " (#" + count++ + ")";
+                ToastTitle = NotifingItem.ToastTitle;
                 Description = NotifingItem.Description;
                 Thumb = NotifingItem.Thumb;
-                NotifiedTime = NotifingItem.NotifiedTime;
+                NotifyTime = System.DateTime.Now;
                 VisualStateManager.GoToState(this, "Initilized", true);
                 await System.Threading.Tasks.Task.Delay(350);
             }
@@ -266,10 +281,9 @@ namespace Epxoxy.Controls
             ToastTitle = null;
             Description = null;
             Thumb = null;
-            NotifiedTime = DateTime.MinValue;
+            NotifyTime = DateTime.MinValue;
         }
-
-        private int count;
+        
         #endregion
 
         public override void OnApplyTemplate()
@@ -313,11 +327,11 @@ namespace Epxoxy.Controls
 
 
         private int maxDismissSizeCache = 10;
-        private INotified NotifingItem { get; set; }
+        private INotifyItem NotifingItem { get; set; }
         private System.Windows.Controls.Button closeBtn;
         private bool IsTimerUseless => waitingList.Count < 1 && NotifingItem == null;
-        private INotified NextINotified => waitingList.Count > 0 ? waitingList[0] : null;
-        private System.Collections.Generic.List<INotified> waitingList = new System.Collections.Generic.List<INotified>();
+        private INotifyItem NextINotified => waitingList.Count > 0 ? waitingList[0] : null;
+        private System.Collections.Generic.List<INotifyItem> waitingList = new System.Collections.Generic.List<INotifyItem>();
         public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(Toast));
     }
 

@@ -12,3 +12,17 @@ C:\mnt\develop\Epxoxy\NOFiveControls\obj\Release\NOFiveControls.csproj.GenerateR
 C:\mnt\develop\Epxoxy\NOFiveControls\obj\Release\NOFiveControls.dll
 C:\mnt\develop\Epxoxy\NOFiveControls\obj\Release\NOFiveControls.pdb
 C:\mnt\develop\Epxoxy\NOFiveControls\obj\Release\NOFiveControls.csprojResolveAssemblyReference.cache
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\bin\Release\NOFiveControls.dll
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\bin\Release\NOFiveControls.pdb
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Release\NOFiveControls.csprojResolveAssemblyReference.cache
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Release\AlertBox.g.cs
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Release\NOFiveControls_MarkupCompile.cache
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Release\NOFiveControls_MarkupCompile.lref
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Release\AlertBox.baml
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Release\Themes\Generic.baml
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Release\NOFiveControls.g.resources
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Release\NOFiveControls.Properties.Resources.resources
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Release\NOFiveControls.csproj.GenerateResource.Cache
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Release\NOFiveControls.dll
+C:\mnt\develop\CSharp\Epxoxy\NOFiveControls\obj\Release\NOFiveControls.pdb

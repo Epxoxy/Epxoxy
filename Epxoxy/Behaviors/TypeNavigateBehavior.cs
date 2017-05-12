@@ -16,9 +16,29 @@ namespace Epxoxy.Behaviors
         public static readonly DependencyProperty NavigateTargetProperty =
             DependencyProperty.Register("NavigateTarget", typeof(Type), typeof(TypeNavigateBehavior), new PropertyMetadata(null, OnNavigateTargetChanged));
 
+        public bool KeepAlive
+        {
+            get { return (bool)GetValue(KeepAliveProperty); }
+            set { SetValue(KeepAliveProperty, value); }
+        }
+        public static readonly DependencyProperty KeepAliveProperty =
+            DependencyProperty.Register("KeepAlive", typeof(bool), typeof(TypeNavigateBehavior), new PropertyMetadata(false, OnKeepAliveChanged));
+
         private Dictionary<Type, object> navigatedList = new Dictionary<Type, object>();
         private System.Windows.Controls.Frame AssociatedFrame => AssociatedObject;
-        private bool keepAlive;
+        private bool keepAliveCache;
+
+        private static void OnKeepAliveChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var behaviors = d as TypeNavigateBehavior;
+            if (null != behaviors)
+            {
+                behaviors.keepAliveCache = (bool)e.NewValue;
+                if (null != behaviors.navigatedList
+                    && !behaviors.keepAliveCache)
+                    behaviors.navigatedList.Clear();
+            }
+        }
 
         private static void OnNavigateTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -30,7 +50,7 @@ namespace Epxoxy.Behaviors
         {
             base.OnAttached();
             AssociatedFrame.Navigated += OnAssociatedFrameNavigated;
-            keepAlive = System.Windows.Navigation.JournalEntry.GetKeepAlive(AssociatedFrame);
+            System.Windows.Navigation.JournalEntry.SetKeepAlive(AssociatedFrame, keepAliveCache);
             Navigate();
         }
 
@@ -38,42 +58,51 @@ namespace Epxoxy.Behaviors
         {
             navigatedList.Clear();
             navigatedList = null;
+            LastObject = null;
             AssociatedFrame.Navigated -= OnAssociatedFrameNavigated;
             base.OnDetaching();
         }
 
         private void Navigate()
         {
-            if (NavigateTarget == null) return;
-            if (AssociatedFrame == null) return;
-            if (keepAlive)
+            if (null == NavigateTarget) return;
+            if (null == AssociatedFrame) return;
+            if(AssociatedFrame.Content != null 
+                && AssociatedFrame.Content.GetType() == NavigateTarget)
             {
-                if (!navigatedList.ContainsKey(NavigateTarget))
+                AssociatedFrame.Refresh();
+            }else
+            {
+                if (keepAliveCache)
                 {
-                    object targetObj = Activator.CreateInstance(NavigateTarget);
-                    navigatedList.Add(NavigateTarget, targetObj);
-                    AssociatedFrame.Navigate(targetObj);
+                    if (!navigatedList.ContainsKey(NavigateTarget))
+                    {
+                        object targetObj = Activator.CreateInstance(NavigateTarget);
+                        LastObject = targetObj;
+                        navigatedList.Add(NavigateTarget, targetObj);
+                    }
+                    else
+                    {
+                        LastObject = navigatedList[NavigateTarget];
+                    }
                 }
                 else
                 {
-                    AssociatedFrame.Navigate(navigatedList[NavigateTarget]);
-                    Helpers.DebugHelper.debugWrite(this, "TypeNavigateMsg : Exist object!");
+                    LastObject = Activator.CreateInstance(NavigateTarget);
                 }
-            }
-            else
-            {
-                AssociatedFrame.Navigate(Activator.CreateInstance(NavigateTarget));
+                AssociatedFrame.Navigate(LastObject);
             }
         }
 
         private void OnAssociatedFrameNavigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
-            var obj = e.Content;
-            if (keepAlive)
-            {
-                var key = navigatedList.FirstOrDefault(x => x.Value == obj).Key;
-                if (NavigateTarget != key) NavigateTarget = key;
-            }
+            if (null == e.Content) return;
+            if (LastObject == e.Content) return;
+            var type = e.Content.GetType();
+            if (NavigateTarget != type)
+                NavigateTarget = type;
         }
+
+        private object LastObject { get; set; }
     }
 }

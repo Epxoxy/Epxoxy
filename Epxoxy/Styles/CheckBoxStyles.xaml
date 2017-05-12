@@ -118,7 +118,7 @@
     <!--#region ********** Simple CheckBox Style ************ -->
 
     <SolidColorBrush x:Key="CheckBox.OptionMark.Static.Fill" Color="#FF707070" />
-    <SolidColorBrush x:Key="CheckBox.OptionMark.Pressed.Fill" Color="#FF212121" />
+    <SolidColorBrush x:Key="CheckBox.OptionMark.Pressed.Fill" Color="SkyBlue" />
     <SolidColorBrush x:Key="CheckBox.MouseOver.BorderBrush" Color="#3DA254" />
     <SolidColorBrush x:Key="CheckBox.Checked.Background" Color="SkyBlue" />
     <ControlTemplate x:Key="CheckBoxControlTemplate" TargetType="{x:Type CheckBox}">
@@ -129,7 +129,7 @@
             </Grid.ColumnDefinitions>
             <Border x:Name="checkBoxBorder" BorderThickness="2" BorderBrush="Gray" CornerRadius="2" Margin="1,1,4,1" SnapsToDevicePixels="True">
                 <Grid x:Name="markGrid">
-                    <Path x:Name="optionMark" Data="F1M10,1L4.7,9 4.5,9 0,5 1.3,3.5 4.3,6 8.3,0 10,1.2z" Fill="White" Margin="1" Opacity="0" Stretch="None"/>
+                    <Path x:Name="optionMark" Data="F1M10,1.5L4.7,9.5 4.5,9.5 0,5.5 1.3,4 4.3,6.5 8.3,0.5 10,1.7 M0,10z" Fill="White" Margin="1" Opacity="0" Stretch="None"/>
                     <Rectangle x:Name="indeterminateMark" Fill="#FF212121" Margin="2" Opacity="0"/>
                 </Grid>
             </Border>
